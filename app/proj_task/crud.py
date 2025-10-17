@@ -80,5 +80,19 @@ class manager:
             raise ValueError("TASK NOT FOUND")
         return True
 
+        # -------- HELPERS -------- #
+    def _get_project(self, project_id: int) -> Project:
+        for p in self.projects:
+            if p.id == project_id:
+                return p
+        raise ValueError("PROJECT NOT FOUND")
+
+    def _get_task(self, project: Project, task_id: int) -> Task:
+        for t in project.tasks:
+            if t.id == task_id:
+                return t
+        raise ValueError("TASK NOT FOUND")
+
+
 
 
