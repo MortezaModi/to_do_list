@@ -1,5 +1,5 @@
 from .project_task import Project, Task
-from config import MAX_PROJECTS, MAX_TASKS, VALID_STATUSES
+from app.proj_task.config  import MAX_PROJECTS, MAX_TASKS, VALID_STATUSES
 from datetime import datetime
 
 class manager:
