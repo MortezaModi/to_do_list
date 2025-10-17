@@ -68,10 +68,38 @@ def run_menu() :
                 todo.update_task(pid, tid, title=title, description=description, status=status)
                 print("Task updated successfully")
 
-                
+            # Deleting task
+            elif choice == 7 :
+                pid = int(input("Enter project ID: "))
+                tid = int(input("Enter task ID: "))
+                todo.delete_task(pid, tid)
+                print("Task deleted successfully")
 
+            # Updating task state
+            elif choice == 8 :
+                pid = int(input("Enter project ID: "))
+                tid = int(input("Enter task ID: "))
+                status = input("Enter status (doto / doing / done): ")
+                todo.update_task(pid, tid, status=status)
+                print("Task status updated successfully")
 
+            # Listing tasks
+            elif choice == 9 :
+                pid = int(input("Enter project ID: "))
+                tasks = todo.list_tasks(pid)
+                if not tasks :
+                    print("Such task does not exist !")
+                else :
+                    for t in tasks :
+                        print(f"{t.id} - {t.title} [{t.status}]")
 
+            # Exit
+            elif choice == 0 :
+                print("Exit")
+                break
 
+            else :
+                print("Invalid choice")
 
         except Exception as e :
+            print("Error", e)
