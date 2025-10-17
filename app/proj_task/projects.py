@@ -20,3 +20,14 @@ class Projects:
         if descrip != None :
             self.descrip = descrip
         self.updated_at = datetime.now()
+
+    def __str__(self):
+        return (
+            "Project id : {}" + str(self.id) ,
+            "Title : {}" + str(self.title),
+            "description : {}" + str(self.descrip),
+            "created on : {}" + str(self.created_at.strftime("%Y-%m-%d %H:%M:%S")),
+            "updated at : {}" + str(self.updated_at.strftime("%Y-%m-%d %H:%M:%S")),
+            "No. tasks : {}" + len(self.tasks)
+        )
+
