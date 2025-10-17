@@ -58,8 +58,17 @@ def run_menu() :
                 todo.create_task(pid, title, description)
                 print("Task added successfully")
 
-                
+            # Updating tasks
             elif choice == 6 :
+                pid = int(input("Enter project ID: "))
+                tid = int(input("Enter task ID: "))
+                title = input("Enter NEW task title: ")
+                description = input("Enter NEW task description: ")
+                status = input("Enter new task status (todo / doing / done): ")
+                todo.update_task(pid, tid, title=title, description=description, status=status)
+                print("Task updated successfully")
+
+                
 
 
 
