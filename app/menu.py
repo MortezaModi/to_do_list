@@ -20,6 +20,14 @@ def run_menu() :
         choice = int(input("Enter your choice: "))
 
         try:
-            
+            # create project
+            if choice == 1 :
+                name = input("Enter project name: ")
+                description = input("Enter project description: ")
+                todo.create_project(name, description)
+                print("Project created successfully")
+
+               
+
 
         except Exception as e :
