@@ -26,7 +26,7 @@ def run_menu() :
                 description = input("Enter project description: ")
                 todo.create_project(name, description)
                 print("Project created successfully")
-                
+
             # update project
             elif choice == 2 :
                 pid = int(input("Enter project ID: "))
@@ -35,6 +35,11 @@ def run_menu() :
                 todo.update_project(pid, name, description)
                 print("Project updated successfully")
 
+            # Delete project
+            elif choice == 3 :
+                pid = int(input("Enter project ID: "))
+                todo.delete_project(pid)
+                print("Project deleted successfully")
 
 
         except Exception as e :
