@@ -10,7 +10,7 @@ def run_menu() :
         print("2  Update projects")
         print("3  Delete projects")
         print("4  List projects")
-        print("5  Create tasks")
+        print("5  Add tasks")
         print("6  Update tasks")
         print("7  Delete tasks")
         print("8  Change task status")
@@ -50,7 +50,19 @@ def run_menu() :
                     for p in projects :
                         print(f"{p.id} - {p.name} - {p.description}")
 
-                        
+            # Adding tasks
+            elif choice == 5 :
+                pid = int(input("Enter project ID: "))
+                title = input("Enter task title: ")
+                description = input("Enter task description: ")
+                todo.create_task(pid, title, description)
+                print("Task added successfully")
+
+                
+            elif choice == 6 :
+
+
+
 
 
         except Exception as e :
