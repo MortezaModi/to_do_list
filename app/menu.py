@@ -41,5 +41,16 @@ def run_menu() :
                 todo.delete_project(pid)
                 print("Project deleted successfully")
 
+            # List projects
+            elif choice == 4 :
+                projects = todo.list_projects()
+                if not projects :
+                    print("Such project does not exist !")
+                else :
+                    for p in projects :
+                        print(f"{p.id} - {p.name} - {p.description}")
+
+                        
+
 
         except Exception as e :
