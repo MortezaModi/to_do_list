@@ -26,8 +26,15 @@ def run_menu() :
                 description = input("Enter project description: ")
                 todo.create_project(name, description)
                 print("Project created successfully")
+                
+            # update project
+            elif choice == 2 :
+                pid = int(input("Enter project ID: "))
+                name = input("Enter NEW project name: ")
+                description = input("Enter NEW project description: ")
+                todo.update_project(pid, name, description)
+                print("Project updated successfully")
 
-               
 
 
         except Exception as e :
