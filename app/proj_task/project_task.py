@@ -9,6 +9,7 @@ class Project:
         self.description = description
         self.tasks: list[Task] = []
 
+
     def __repr__(self):
             return f"Project(id={self.id}, name='{self.name}')"
 
