@@ -18,7 +18,7 @@ class Project:
 
 
 class Task:
-    def __init__(self, id: int, title: str, description: str = "", status: str = "todo", deadline: datetime | None = None):
+    def __init__(self, id : int, title: str, description: str = "", status: str = "todo", deadline: datetime | None = None):
         self.id = id
         self.title = title
         self.description = description

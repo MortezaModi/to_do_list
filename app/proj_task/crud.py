@@ -2,7 +2,7 @@ from .project_task import Project, Task
 from app.proj_task.config  import MAX_PROJECTS, MAX_TASKS, VALID_STATUSES
 from datetime import datetime
 
-class manager:
+class Manager:
     def __init__(self):
         self.projects: list[Project] = []
 

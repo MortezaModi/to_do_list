@@ -1,9 +1,7 @@
-from csv import excel
-
-from app.proj_task.crud import manager
+from app.proj_task.crud import Manager
 
 def run_menu() :
-    todo = manager()
+    todo = Manager()
     while True :
         print("\n  To Do list menu:")
         print("1  Create new project")
