@@ -24,12 +24,12 @@ class manager:
     def list_projects(self):
             return self.projects
 
-    def update_project(self, project_id: int, title: str, description: str):
+    def update_project(self, project_id: int, name: str, description: str):
         for p in self.projects:
             if p.id == project_id:
-                if any(x.title == title and x.id != project_id for x in self.project):
+                if any(x.name == name and x.id != project_id for x in self.projects):
                     raise ValueError("PROJECT ALREADY EXISTS")
-                p.title = title
+                p.name = name
                 p.description = description
                 return p
         raise ValueError("PROJECT NOT FOUND 404")
