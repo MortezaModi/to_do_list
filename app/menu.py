@@ -1,7 +1,10 @@
-from app.proj_task.crud import Manager
+from app.proj_task.repository import ProjectRepository
+from app.proj_task.manager import Manager
 
 def run_menu() :
-    todo = Manager()
+    repo = ProjectRepository()
+    todo = Manager(repo)
+
     while True :
         print("\n  To Do list menu:")
         print("1  Create new project")
