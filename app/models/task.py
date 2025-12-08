@@ -6,8 +6,9 @@ from app.db.base import Base
 
 class TaskStatus(enum.Enum):
     TODO = "todo"
-    DOING ="doing"
+    IN_PROGRESS ="in progress"
     DONE = "done"
+    OVERDUE = "overdue"
 
 
 class Task(Base):

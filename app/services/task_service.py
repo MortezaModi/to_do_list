@@ -142,7 +142,7 @@ class TaskService:
                 and_(
                     Task.due_date != None,
                     Task.due_date < today,
-                    Task.status.in_([TaskStatus.TODO, TaskStatus.DOING])
+                    Task.status.in_([TaskStatus.TODO, TaskStatus.IN_PROGRESS])
                 )
             )
         )
