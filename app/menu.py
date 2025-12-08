@@ -130,4 +130,3 @@ def run_menu() :
         else :
             print("Invalid choice")
 
-       
