@@ -1,130 +1,232 @@
-# 📝 ToDoList CLI Project
+# 📝 To-Do List Application
 
-A simple **project and task management system** built with Python.  
-This version is fully **in-memory (no database, no API)** and runs through a **Command-Line Interface (CLI)**.
+A modular, production-ready **Task & Project Management system** built using:
 
----
+* **Python 3.13**
+* **FastAPI** (REST API)
+* **SQLAlchemy ORM**
+* **Alembic** (database migrations)
+* **PostgreSQL**
+* **Poetry** (dependency + venv management)
+* **Rich CLI** (optional)
+* **Postman** (API testing, exported JSON collections included)
 
-## ⚙️ Features
-
-✅ **Project Management**
-- Create a new project  
-- Edit project name and description  
-- Delete a project (with automatic cascade delete for its tasks)  
-- List all existing projects  
-
-✅ **Task Management**
-- Add new tasks to a project  
-- Edit title, description, status, and deadline  
-- Delete a task  
-- Change task status (`todo` / `doing` / `done`)  
-- View all tasks for a specific project  
+The project contains **both a CLI interface** and a **FastAPI server**, using clean architecture patterns:
+`Services → Repositories → Database`.
 
 ---
 
-## 🧠 Project Structure
+## 🚀 Features
 
-todolist_core/
-├── app/
-│ ├── init.py ← main logic class: ToDoManager
-│ ├── models.py ← defines Project and Task classes
-│ ├── crud.py ← CRUD operations for projects and tasks
-│ ├── config.py ← configuration values (e.g., VALID_STATUSES)
-│ ├── utils.py ← helper functions (validation, limits, etc.)
+### ✅ Project Management
+
+* Create, list, and delete projects
+* Automatic timestamping (created / updated)
+
+### ✅ Task Management
+
+* Create tasks under projects
+* Update status (`TODO`, `IN_PROGRESS`, `DONE`, `OVERDUE`)
+* Automatic timestamp updates
+* Validation of project existence
+* Query tasks by:
+
+  * project
+  * status
+  * task ID inside project
+
+### ✅ API (FastAPI)
+
+* Fully RESTful API for projects & tasks
+* JSON responses
+* Query filtering
+* Error handling (custom exceptions)
+* Swagger UI and ReDoc available automatically
+
+### ✅ CLI
+
+* Add projects
+* Add tasks
+* Mark tasks done
+* View project/task lists
+* Works directly from the terminal
+
+---
+
+## 📁 Project Structure
+
+```
+todolist/
+│   main.py              # CLI entry point
+│   api.py               # FastAPI entry point (optional)
+│   pyproject.toml       
+│   README.md
 │
-├── menu.py ← CLI user interface
-├── main.py ← entry point of the program
-├── .env.example ← sample environment configuration
-└── README.md ← project documentation
-
-yaml
-Copy code
+├── app/
+│   ├── models/          # SQLAlchemy models
+│   ├── db/              # DB engine, session, base
+│   ├── repositories/    # CRUD layer
+│   ├── services/        # Business logic
+│   ├── schemas/         # (Optional) Pydantic models for API
+│   └── utils/           # Helpers
+│
+└── app2/                # Alembic directory
+    ├── env.py
+    ├── versions/        # Migration files
+    └── script.py.mako
+```
 
 ---
 
-## 🚀 Running the Program
+## 🛠 Installation & Setup
 
-### 1️⃣ Check Python Installation
-Make sure **Python 3.10+** is installed.
-Also install pipx to work on poetry
+### 1. Clone the repository
 
-```bash
-python --version
-2️⃣ Run the Project
-Run the following command from the project root:
+```
+git clone <your-repo-url>
+cd todolist
+```
 
-bash
-Copy code
-python main.py
-📟 Example Output:
+### 2. Install dependencies (Poetry)
 
-🚀 ToDoList Management System Ready.
+```
+poetry install
+```
 
-📋 ToDoList Menu
-1️⃣ Create Project
-2️⃣ Edit Project
-3️⃣ Delete Project
-4️⃣ View All Projects
-5️⃣ Add Task
-6️⃣ Edit Task
-7️⃣ Delete Task
-8️⃣ Change Task Status
-9️⃣ View Tasks in Project
-0️⃣ Exit
-👉 Your choice:
-⚙️ Environment Configuration (.env)
-The .env file defines limits and app settings.
-A sample configuration file is provided as .env.example:
+### 3. Activate virtual environment
 
-ini
-Copy code
-MAX_NUMBER_OF_PROJECT=5
-MAX_NUMBER_OF_TASK=10
-⚠️ The real .env file should not be committed to version control for security and configurability reasons. ⚠️
+```
+poetry shell
+```
 
-🔁 Cascade Delete
-Each project acts as a container for its tasks.
-When a project is deleted, all its associated tasks are automatically removed
-to prevent orphaned data and maintain data consistency.
+### 4. Create `.env`
 
-💡 Valid Task Statuses
-Tasks can only have one of the following statuses:
+```
+DATABASE_URL=postgresql+psycopg2://user:*****@localhost:5433/todolist_db
+```
 
-bash
-Copy code
-todo | doing | done
-If an invalid value is provided, a ValueError will be raised.
+---
 
-🧩 Development Workflow
-Recommended Git branching workflow:
+## 🗄 Initialize Database
 
-Create new feature branches from develop (e.g., feature/add-task-deadline)
+### Run migrations:
 
-Commit and test changes
+```
+alembic upgrade head
+```
 
-Merge back into develop
+### If you need to autogenerate future migrations:
 
-Only stable, production-ready versions should be merged into main
+```
+alembic revision --autogenerate -m "Your message"
+alembic upgrade head
+```
 
-🧰 Technologies Used
-Tool Description
-🐍 Python Main programming language
-🧩 dotenv Loads environment variables from .env
-🧠 OOP Object-Oriented design for managing projects and tasks
-🖥 CLI Command Line Interface for user interaction
+---
 
-👤 Author
-Name: Morteza Maddah
+## ▶ Running the CLI
 
-Date: October 2025
+Inside the virtual environment:
 
+```
+python main.py cli
+```
 
-💬 Future Improvements
+Examples:
 
-Save data to a JSON file
+```
+python main.py project create "School Work" "Assignments and deadlines"
+python main.py task add 1 "Math HW" "Do exercises 1–10"
+python main.py task list 1
+python main.py task done 3
+```
 
-Add a graphical interface (maybe tkinter)
+---
 
-Build a REST API using FastAPI
+## 🌐 Running the API (FastAPI)
 
+If your FastAPI entry file is **api.py**:
 
+```
+uvicorn api:app --reload
+```
+
+Then visit:
+
+* Swagger UI → [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+* ReDoc → [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+---
+
+## 🧪 Postman Collection (Included)
+
+Inside the repository, you will find:
+
+```
+postman/
+    todolist_collection.postman_collection.json
+    todolist_environment.postman_environment.json
+```
+
+Import both into Postman:
+
+1. **Postman → Import → Upload Files**
+2. Select the JSON files
+3. You now have all GET/POST/PUT/DELETE tests ready to run
+
+---
+
+## 🧱 Technologies Used
+
+| Component       | Tech            |
+| --------------- | --------------- |
+| Language        | Python 3.13     |
+| Framework       | FastAPI         |
+| ORM             | SQLAlchemy      |
+| DB              | PostgreSQL      |
+| Migrations      | Alembic         |
+| Package Manager | Poetry          |
+| Task Status     | Custom Enum     |
+| API Testing     | Postman         |
+| CLI             | Rich (optional) |
+
+---
+
+## 🚨 Common Issues & Fixes
+
+### ❗ Enum mismatch:
+
+If you get errors like:
+
+```
+invalid input value for enum taskstatus: "DOING"
+```
+
+Ensure your Python enum **matches PostgreSQL enum** and run migrations.
+
+---
+
+## 📌 Future Improvements
+
+* JWT authentication (FastAPI Users)
+* Docker deployment
+* Task priority levels
+* Notification scheduler
+* User accounts & multi-tenancy
+
+---
+
+## 👤 Author
+
+**Morteza Maddah**
+Python / FastAPI Developer
+Email: [maddahmasoud@gmail.com](mailto:maddahmasoud@gmail.com)
+
+---
+
+If you want, I can also generate:
+
+✅ API documentation (OpenAPI examples)
+✅ CLI usage table
+✅ Entity-relationship diagram
+✅ Badges (Poetry, FastAPI, PostgreSQL, etc.)
