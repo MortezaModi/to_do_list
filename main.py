@@ -31,7 +31,7 @@ if __name__ == "__main__":
         print_deprecation_warning()
         cli_main()
     else:
-        print("Startinh todolist REST API")
+        print("Starting todolist REST API")
         print("Access documented at http://127.0.0.1:8000/docs")
         start_api()
 

@@ -33,7 +33,7 @@ def start_scheduler_cli(daemon: bool):
     # 2. Add the Jobs
     # Example: Run the autoclose_overdue command every day at 2:00 AM
     scheduler.add_job(
-        func=lambda: run_job_wrapper(autoclose_overdue),  # Pass the command wrapper
+        func=lambda: run_job_wrapper(autoclose_overdue()),  # Pass the command wrapper #SUS (autoclose_overdue)
         trigger='cron',
         hour=2,
         minute=0,
